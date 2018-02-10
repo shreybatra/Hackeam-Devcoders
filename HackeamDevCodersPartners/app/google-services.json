@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "564955429579",
+    "firebase_url": "https://hackeamdevcoderspartners.firebaseio.com",
+    "project_id": "hackeamdevcoderspartners",
+    "storage_bucket": "hackeamdevcoderspartners.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:564955429579:android:9a2fd14a3274fe78",
+        "android_client_info": {
+          "package_name": "com.varshney.hackeamdevcoders_partners"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "564955429579-qhohbd1r3adc06dge2gs825fob8fsi67.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.varshney.hackeamdevcoders_partners",
+            "certificate_hash": "b7c753c55cdc851eeaf845b576c2416b2479b769"
+          }
+        },
+        {
+          "client_id": "564955429579-4rs2cmnr7ordpgihslrkq3fpcpnkve10.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsmh1waQsaq74ne7r24_z_tSbQjWEPag8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "564955429579-4rs2cmnr7ordpgihslrkq3fpcpnkve10.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

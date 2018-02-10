@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.varshney.hackeamdevcoders.MedicineForm">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/layout1">
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:hint="Medicine1"
+                android:id="@+id/etMedicine1"/>
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:hint="0"
+                android:inputType="number"
+                android:textAlignment="center"
+                android:layout_height="match_parent"
+                android:id="@+id/etQty1"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/layout2">
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:hint="Medicine1"
+                android:id="@+id/etMedicine2"/>
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:hint="0"
+                android:inputType="number"
+                android:textAlignment="center"
+                android:layout_height="match_parent"
+                android:id="@+id/etQty2"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/layout3">
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:hint="Medicine3"
+                android:id="@+id/etMedicine3"/>
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:hint="0"
+                android:textAlignment="center"
+                android:inputType="number"
+                android:layout_height="match_parent"
+                android:id="@+id/etQty3"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/layout4">
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:hint="Medicine4"
+                android:id="@+id/etMedicine4"/>
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:hint="0"
+                android:inputType="number"
+                android:textAlignment="center"
+                android:layout_height="match_parent"
+                android:id="@+id/etQty4"/>
+        </LinearLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Find ShopKeeper"
+            android:id="@+id/btnFindShopKeeper"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Medicines"
+            android:fontFamily="sans-serif"
+            android:textSize="20dp"
+            android:id="@+id/tvMedicines"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Qty"
+            android:fontFamily="sans-serif"
+            android:textSize="20dp"
+            android:id="@+id/tvQty"/>
+
+    </LinearLayout>
+</LinearLayout>
