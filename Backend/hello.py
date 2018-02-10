@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 medical_reqs = [
 {
-'id':0,
+#'id':0,
 'username':'admin',
 'medicines':['none'],
 'quantities':['none'],
@@ -21,7 +21,7 @@ medical_reqs = [
 
 logins = [
 {
-'id':0,
+#'id':0,
 'username':'admin',
 'email':'abc@gmail.com'
 #'password':'hackeam2018',
@@ -30,9 +30,9 @@ logins = [
 
 pharmacies = [
 {
-	'id':0,
-	'email':'abc@gmail.com',
-	'username':'admin',
+	#'id':0,
+	#'email':'abc@gmail.com',
+	'username':'abc@gmail.com',
 	#'password':'admin',
 	'latitude':0,
 	'longitude':0,
@@ -71,7 +71,7 @@ def addclient():
 			return jsonify({'msg':'not verified'}),200
 
 	pharmacy = {
-		'id':pharmacies[-1]['id']+1,
+		#'id':pharmacies[-1]['id']+1,
 		'email':email,
 		'username':username
 		#'password':request.json['password'],
@@ -90,7 +90,7 @@ def sendreqs():
 	#if not 'username' in request.json:
 	#	abort(400)
 	req = {
-		'id': medical_reqs[-1]['id'] + 1,
+		#'id': medical_reqs[-1]['id'] + 1,
 		'username': request.json.get('username',""),
 		'medicines': request.json['medicines'].split('$'),
 		'quantities': request.json['quantities'].split('$'),
@@ -116,7 +116,18 @@ def showreqs():
 @app.route('/deleteall',methods=['DELETE'])
 def deleteall():
 	medical_reqs.clear()
+	pharmacies.clear()
+	logins.clear()
 	return jsonify({'deleted':'all'}),200
+
+
+#-------------DELETE---USERS------------
+
+
+@app.route('/deleteusers',methods=['DELETE'])
+def deleteusers():
+	logins.clear()
+	return jsonify({'deleted':'users'}),200
 
 
 
@@ -158,7 +169,7 @@ def addpharmacy():
 			return jsonify({'msg':'not verified'}),200
 
 	pharmacy = {
-		'id':pharmacies[-1]['id']+1,
+		#'id':pharmacies[-1]['id']+1,
 		'username':username,
 		#'password':request.json['password'],
 		'latitude':request.json.get('latitude','0'),
@@ -206,6 +217,7 @@ def requestpharmacy():
 	oldtime = 0;
 	lat = 0;
 	lon = 0;
+	flag = 0;
 
 	newtime = calendar.timegm(time.gmtime())
 
@@ -215,13 +227,16 @@ def requestpharmacy():
 			pharmacy['last_visited'] = newtime
 			lat = pharmacy['latitude']
 			lon = pharmacy['longitude']
+			flag = 1;
 			break
+
+	if flag==0:
+		return jsonify({'msg':'not verified'}),200
 
 	reqs = []
 	for med_req in medical_reqs:
 		if med_req['time_created']>=oldtime and dist(med_req['latitude'], med_req['longitude'], lat, lon)<maxDist:
 			reqs.append(med_req)
-
 	return jsonify({'requests':reqs}),200
 
 
@@ -229,4 +244,4 @@ def requestpharmacy():
 #-------------------THE------END-------------------
 
 if __name__=="__main__":
-	app.run()
+	app.run(port=5000,use_reloader=True)
