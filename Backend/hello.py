@@ -1,43 +1,54 @@
 from flask import Flask,jsonify,request
 import time,calendar
 from geopy.distance import vincenty
+import pymongo
+from pymongo import MongoClient
+
+client = MongoClient()
 
 app = Flask(__name__)
+
+db = client.hackeam
+
+medical_reqs = db.medical_reqs
+logins = db.logins
+pharmacies = db.pharmacies
 
 
 #---------DATABSES--------------
 
-medical_reqs = [
-{
-#'id':0,
-'username':'admin',
-'medicines':['none'],
-'quantities':['none'],
-'latitude':0,
-'longitude':0,
-'time_created':0
-}
-]
 
-logins = [
-{
-#'id':0,
-'username':'admin',
-'email':'abc@gmail.com'
-#'password':'hackeam2018',
-}
-]
+# medical_reqs = [
+# {
+# #'id':0,
+# 'username':'admin',
+# 'medicines':['none'],
+# 'quantities':['none'],
+# 'latitude':0,
+# 'longitude':0,
+# 'time_created':0
+# }
+# ]
 
-pharmacies = [
-{
-	#'id':0,
-	#'email':'abc@gmail.com',
-	'username':'abc@gmail.com',
-	#'password':'admin',
-	'latitude':0,
-	'longitude':0,
-	'last_visited':0
-}]
+# logins = [
+# {
+# #'id':0,
+# 'username':'admin',
+# 'email':'abc@gmail.com'
+# #'password':'hackeam2018',
+# }
+# ]
+
+# pharmacies = [
+# {
+# 	#'id':0,
+# 	#'email':'abc@gmail.com',
+# 	'username':'abc@gmail.com',
+# 	#'password':'admin',
+# 	'latitude':0,
+# 	'longitude':0,
+# 	'last_visited':0
+# }]
 
 maxDist = 2
 
@@ -63,21 +74,22 @@ def hello():
 
 @app.route('/addclient',methods=['POST'])
 def addclient():
-	username = request.json['username']
-	email = request.json['email']
+	user = request.json['username']
+	#email = request.json['email']
 
-	for person in logins:
-		if person['username'] == username or person['email'] == email:
+	person = logins.find(username==user)
+	
+	if person!=None:
 			return jsonify({'msg':'not verified'}),200
 
 	pharmacy = {
 		#'id':pharmacies[-1]['id']+1,
-		'email':email,
+		'username':user,
 		'username':username
 		#'password':request.json['password'],
 	}
 
-	pharmacies.append(pharmacy)
+	pharmacies.insert_one(pharmacy)
 
 	return jsonify({'msg':'verified'}),201
 
@@ -98,7 +110,8 @@ def sendreqs():
 		'longitude':request.json.get('longitude','0'),
 		'time_created': calendar.timegm(time.gmtime())
 	}
-	medical_reqs.append(req)
+	#medical_reqs.append(req)
+	medical_reqs.insert_one(req)
 	return jsonify({'done':'task'}),201
 
 
@@ -107,7 +120,14 @@ def sendreqs():
 
 @app.route('/showreqs', methods=['GET'])
 def showreqs():
-	return jsonify({'records':medical_reqs}),200
+
+	final = []
+
+	for req in medical_reqs.find({}):
+		req.pop('_id')
+		final.append(req)
+
+	return jsonify({'records':final}),200
 
 
 #--------------------DELETE----ALL--------------------
@@ -115,9 +135,9 @@ def showreqs():
 
 @app.route('/deleteall',methods=['DELETE'])
 def deleteall():
-	medical_reqs.clear()
-	pharmacies.clear()
-	logins.clear()
+	db.medical_reqs.drop()
+	db.pharmacies.drop()
+	db.logins.drop()
 	return jsonify({'deleted':'all'}),200
 
 
@@ -126,33 +146,9 @@ def deleteall():
 
 @app.route('/deleteusers',methods=['DELETE'])
 def deleteusers():
-	logins.clear()
+	db.logins.drop()
 	return jsonify({'deleted':'users'}),200
 
-
-
-#-------------------UPDATE----PASS--------------------
-
-
-@app.route('/updatepassword',methods=['POST'])
-def updatepassword():
-
-	user = request.json['username']
-	oldpass = request.json['oldpassword']
-	newpass = request.json['newpassword']
-
-	flag = False
-
-	for person in logins:
-		if person['username'] == user and person['password'] == oldpass:
-			flag = True
-			person['password'] = newpass
-			break
-
-	if flag==True:
-		return jsonify({'password':'changed'}),200
-	else:
-		return jsonify({'wrong':'credentials'}),200
 
 
 #-------------------ADD------PHARMACY-------------
@@ -161,41 +157,27 @@ def updatepassword():
 @app.route('/addpharmacy',methods=['POST'])
 def addpharmacy():
 
-	username = request.json['username']
+	user = request.json['username']
 	#email = request.json['email']
 
-	for pharma in pharmacies:
-		if pharma['username'] == username:
-			return jsonify({'msg':'not verified'}),200
+	pharma = pharmacies.find_one({'username':user})
+
+	if pharma!=None:
+		return jsonify({'msg':'not verified'}),200
+			
 
 	pharmacy = {
 		#'id':pharmacies[-1]['id']+1,
-		'username':username,
+		'username':user,
 		#'password':request.json['password'],
 		'latitude':request.json.get('latitude','0'),
 		'longitude':request.json.get('longitude','0'),
 		'last_visited':calendar.timegm(time.gmtime())
 	}
 
-	pharmacies.append(pharmacy)
+	pharmacies.insert_one(pharmacy)
 
 	return jsonify({'msg':'verified'}),201
-
-
-#-------------------LOGIN-----PHARMACY---------
-
-
-@app.route('/pharmacylogin', methods=['POST'])
-def pharmacylogin():
-
-	username = request.json['username']
-	#password = request.json['password']
-
-	for pharmacy in pharmacies:
-		if pharmacy['username']==username:
-			return jsonify({'msg','verified'}),200
-
-	return jsonify({'msg','not verified'}),200
 
 
 
@@ -204,7 +186,13 @@ def pharmacylogin():
 
 @app.route('/showpharmacies', methods=['GET'])
 def showpharmacies():
-	return jsonify({'pharmacies':pharmacies}),200
+
+	final = []
+
+	for pharma in pharmacies.find():
+		pharma.pop('_id')
+		final.append(pharma)
+	return jsonify({'pharmacies':final}),200
 
 
 #------------------RESUEST-----PHARMACY-----------
@@ -212,30 +200,32 @@ def showpharmacies():
 
 @app.route('/requestpharmacy', methods=['POST'])
 def requestpharmacy():
-	username = request.json['username']
+	user = request.json['username']
 
-	oldtime = 0;
-	lat = 0;
-	lon = 0;
-	flag = 0;
+
+	pharma = pharmacies.find_one({'username':user})
 
 	newtime = calendar.timegm(time.gmtime())
 
-	for pharmacy in pharmacies:
-		if username == pharmacy['username']:
-			oldtime = pharmacy['last_visited']
-			pharmacy['last_visited'] = newtime
-			lat = pharmacy['latitude']
-			lon = pharmacy['longitude']
-			flag = 1;
-			break
+	oldtime = pharma['last_visited']
+	
+	
+	lat = pharma['latitude']
+	lon = pharma['longitude']
+	pharmacies.find_one_and_update({'username':user},{'$set':{'last_visited':newtime}})
+	#flag = pharma['last_visited']
 
-	if flag==0:
+	
+
+	
+
+	if pharma==None:
 		return jsonify({'msg':'not verified'}),200
 
 	reqs = []
-	for med_req in medical_reqs:
+	for med_req in medical_reqs.find():
 		if med_req['time_created']>=oldtime and dist(med_req['latitude'], med_req['longitude'], lat, lon)<maxDist:
+			med_req.pop('_id')
 			reqs.append(med_req)
 	return jsonify({'requests':reqs}),200
 
