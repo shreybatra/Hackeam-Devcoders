@@ -77,7 +77,7 @@ def addclient():
 	user = request.json['username']
 	#email = request.json['email']
 
-	person = logins.find(username==user)
+	person = logins.find({'username':user})
 	
 	if person!=None:
 			return jsonify({'msg':'not verified'}),200
@@ -85,7 +85,6 @@ def addclient():
 	pharmacy = {
 		#'id':pharmacies[-1]['id']+1,
 		'username':user,
-		'username':username
 		#'password':request.json['password'],
 	}
 
