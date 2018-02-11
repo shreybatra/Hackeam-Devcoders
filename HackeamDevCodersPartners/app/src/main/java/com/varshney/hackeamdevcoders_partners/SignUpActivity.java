@@ -32,7 +32,7 @@ public class SignUpActivity extends AppCompatActivity {
     public static final String TAG = "SignUpActivity";
     LocationManager locationManager;
     LocationListener locationListener;
-    public static final String URL = "https://9e35aacd.ngrok.io/addpharmacy";
+    public static final String URL = "https://d8db96e1.ngrok.io/addpharmacy";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

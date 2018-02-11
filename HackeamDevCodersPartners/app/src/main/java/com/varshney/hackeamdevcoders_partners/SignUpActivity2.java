@@ -40,7 +40,7 @@ public class SignUpActivity2 extends AppCompatActivity {
     public static final String TAG = "SignUp2";
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-    public static final String URL = "https://efc0ddcb.ngrok.io/addpharmacy";
+    public static final String URL = "https://5124ff94.ngrok.io/addpharmacy";
 
     EditText etEmail,etPassword;
     Button btnSignUp;

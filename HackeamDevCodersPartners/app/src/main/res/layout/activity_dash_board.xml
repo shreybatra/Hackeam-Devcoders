@@ -7,11 +7,43 @@
     android:orientation="vertical"
     tools:context="com.varshney.hackeamdevcoders_partners.DashBoardActivity">
 
+<!--
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/rvMedicines"
+        android:scrollbars="vertical"
+        />
+-->
+
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardCornerRadius="5dp"
+        android:background="@color/cardview_dark_background"
+        >
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
+        android:textAlignment="center"
+        android:textSize="25dp"
+        android:textColor="@color/cardview_light_background"
         android:layout_height="wrap_content"
-        android:id="@+id/tvUserEmail"
-        android:text="hello"/>
+        android:background="@color/cardview_dark_background"
+        android:id="@+id/tv1"/>
 
+
+    <TextView
+        android:layout_width="200dp"
+        android:textAlignment="center"
+        android:textSize="25dp"
+        android:textColor="@color/cardview_light_background"
+        android:layout_gravity="right"
+        android:background="@color/cardview_dark_background"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv2"/>
+
+    </android.support.v7.widget.CardView>
 </LinearLayout>

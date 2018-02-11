@@ -100,7 +100,7 @@ public class LoginActivity extends AppCompatActivity {
                             Log.d(TAG, "signInWithEmail:success");
                             Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
                             FirebaseUser user = mAuth.getCurrentUser();
-
+                            startService(new Intent(LoginActivity.this,RequestPullService.class));
                             startActivity(new Intent(LoginActivity.this,DashBoardActivity.class));
                             // updateUI(user);
                         } else {

@@ -2,6 +2,7 @@ package com.varshney.hackeamdevcoders;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -36,7 +37,7 @@ public class MedicineForm extends AppCompatActivity {
     LocationManager locationManager;
     LocationListener locationListener;
     public static final String TAG = "MedicineForm";
-    public static final String URL = "https://37c1fcc7.ngrok.io/sendreqs";
+    public static final String URL = "https://5124ff94.ngrok.io/sendreqs";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,9 +56,9 @@ public class MedicineForm extends AppCompatActivity {
         etQty3 = findViewById(R.id.etQty3);
         etQty4 = findViewById(R.id.etQty4);
 
-        tvMedicines = findViewById(R.id.tvMedicines);
-        tvQty = findViewById(R.id.tvQty);
 
+        Intent i =getIntent();
+        final String UserName = i.getStringExtra("UserName");
         final RequestQueue queue = Volley.newRequestQueue(this);
         final JSONObject jsonObject = new JSONObject();
 
@@ -73,8 +74,6 @@ public class MedicineForm extends AppCompatActivity {
                 final String[] lat = {""};
                 final String[] lon = {""};
 
-                tvMedicines.setText("");
-                tvQty.setText("");
 
                 try {
 
@@ -112,7 +111,7 @@ public class MedicineForm extends AppCompatActivity {
                         }
                     }
 
-                    jsonObject.put("username", "chutia");
+                    jsonObject.put("username", UserName);
                     Log.d(TAG, "onInsideReq: " + med + " qty: " + qty);
                     jsonObject.put("medicines", med);
                     jsonObject.put("quantities", qty);
@@ -126,6 +125,7 @@ public class MedicineForm extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d(TAG, "onResponse: " + response.toString());
+                        Toast.makeText(MedicineForm.this, "Submitted Successfully", Toast.LENGTH_SHORT).show();
                     }
                 }, new Response.ErrorListener() {
                     @Override
@@ -134,8 +134,7 @@ public class MedicineForm extends AppCompatActivity {
                     }
                 });
 
-                tvMedicines.setText(med);
-                tvQty.setText(qty);
+
                 queue.add(request);
 
 

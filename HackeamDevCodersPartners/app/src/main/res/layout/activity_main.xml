@@ -1,24 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/cardview_dark_background"
     tools:context="com.varshney.hackeamdevcoders_partners.MainActivity">
 
+
+    <ViewFlipper
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/vf"
+        android:layout_marginBottom="100dp"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="HACKEAM\n2018\nDEVCODERS\nPARTNERS"
+            android:gravity="center"
+            android:textSize="50dp"
+            android:fontFamily="casual"
+            android:id="@+id/tv"
+            android:textStyle="bold"
+            android:background="@color/cardview_dark_background"
+            android:textColor="@color/cardview_light_background"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:id="@+id/img1"
+            android:layout_height="match_parent" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:id="@+id/img2"
+            android:layout_height="match_parent" />
+
+    </ViewFlipper>
 
 <Button
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:text="Login"
+    android:background="@color/cardview_light_background"
+    android:layout_alignBottom="@+id/btnSignUp"
+    android:layout_marginBottom="50dp"
+    android:textColor="@color/colorPrimary"
+    android:textStyle="bold"
+    android:padding="@dimen/cardview_compat_inset_shadow"
     android:id="@+id/btnLogin"
     />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/cardview_light_background"
         android:text="SignUp"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimary"
+        android:padding="@dimen/cardview_compat_inset_shadow"
+        android:layout_alignParentBottom="true"
         android:id="@+id/btnSignUp"/>
-</LinearLayout>
+</RelativeLayout>
