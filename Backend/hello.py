@@ -136,7 +136,7 @@ def showreqs():
 @app.route('/deleteall',methods=['DELETE'])
 def deleteall():
 	db.medical_reqs.drop()
-	db.pharmacies.drop()
+	#db.pharmacies.drop()
 	db.logins.drop()
 	return jsonify({'deleted':'all'}),200
 
