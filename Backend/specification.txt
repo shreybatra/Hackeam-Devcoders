@@ -1,0 +1,11 @@
+Specifications - 
+
+Platform Requirements
+Android Phones
+
+two android apps - 1 for customer and 1 for pharmacies.
+
+Server Side Python RESTapi/Script for algorithms, databases, etc.
+
+Customer -> Pharmacy Data send (Request)
+Pharmacy -> Customer Reply Back
